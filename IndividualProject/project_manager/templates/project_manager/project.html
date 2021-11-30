@@ -1,0 +1,8 @@
+{% extends 'project_manager/base.html' %}
+{% block content %}
+    <h1>{{project.name}}</h1>
+    <p>Created On: {{project.date_created}}</p>
+    <p>Last Updated: {{project.last_updated}}</p>
+    <p>Project Details: {{project.details}}</p>
+    <p>Owner: {{project.owner}}</p>
+{% endblock content %}

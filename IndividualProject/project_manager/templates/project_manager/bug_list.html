@@ -1,0 +1,28 @@
+{% extends 'project_manager/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Current Bug Reports</h1>
+        <form method="post">
+            {% csrf_token %} 
+            {{ search_form.as_p }}
+            <button type="submit", name="save"> Search</button>
+        </form>
+        {% for bug in bugs %}
+            <h1>{{bug.name}}</h1>
+            <p>{{bug.details}}</p>
+            <p>Requested By: {{bug.user}}</p>
+        {% endfor %}
+      </div>
+      <div class="col">
+        <h1>Create Bug Report</h1>
+        <form method="post">
+            {% csrf_token %} 
+            {{ form.as_p }}
+            <button type="submit", name="save" class="btn btn-success"> Report Bug</button>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock content %}

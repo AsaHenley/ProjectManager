@@ -1,1 +1,86 @@
-<h1>Welcome Home</h1>
+<style type="text/css">
+    .navbar {
+        height:60px;
+        width:100%;
+        position: fixed;
+        z-index:1;
+        top:0;
+        left:0;
+        background-color: rgb(63, 56, 56);
+        overflow-x:hidden;
+        padding-top:20px;
+    }
+    .navbar li {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        float: left;
+    }
+    .navbar a {
+        color: #818181;
+    }
+    .navbar a:hover {
+        color: #f1f1f1;
+    }
+    .list {
+        margin-top: 60px;
+        padding: 10px 0px;
+        float: left;
+        font-size: 18px;
+    }
+    .list a {
+        color:black;
+    }
+    .list a:hover{
+        color:rgb(100, 91, 235);
+    }
+    .create {
+        margin-top: 100px;
+        padding: 0px 500px;
+        float: right;
+        font-size: 18px;
+    
+
+    }
+</style>
+
+<div class="navbar">
+    <ul>
+        <li>User: {{ user.username }}</li>
+        {% if user.is_superuser %}
+            <li><a href="/admin">Admin</a> </li>
+        {% endif %}
+        <li><a href="/logout">Sign Out</a></li>
+    </ul>
+</div>
+
+<div class="list">
+    <ul>
+        <form method="post">
+            {% csrf_token %} 
+            {{ search_form }}
+            <button type="submit", name="search" class="btn btn-success"> Search </button>
+        </form>
+        {%for project in projects%}
+        <h1><a href="{{project.id}}">{{project.name}}</a></h1>
+        <p>{{project.date_created}}</p>
+        <p>{{project.details}}</p>
+        <p>Owner: {{project.owner}}</p>
+        {%endfor%}
+    </ul>
+</div>
+
+{% if user.is_superuser %}
+<div class="create">
+    <ul>
+    <h1>Create New Project</h1>
+    <form method="post">
+        {% csrf_token %} 
+        {{ create_form.as_p }}
+        <button type="submit", name="create" class="btn btn-success"> Create Project </button>
+    </form>
+    </ul>
+</div>
+{% endif %}

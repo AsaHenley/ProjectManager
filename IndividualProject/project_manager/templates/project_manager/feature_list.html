@@ -1,0 +1,28 @@
+{% extends 'project_manager/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Current Requests</h1>
+        <form method="post">
+            {% csrf_token %} 
+            {{ search_form.as_p }}
+            <button type="submit", name="save"> Search</button>
+        </form>
+        {% for feature in features %}
+            <h1>{{feature.name}}</h1>
+            <p>{{feature.details}}</p>
+            <p>Requested By: {{feature.user}}</p>
+        {% endfor %}
+      </div>
+      <div class="col">
+        <h1>Request Feature</h1>
+        <form method="post">
+            {% csrf_token %} 
+            {{ form.as_p }}
+            <button type="submit", name="save" class="btn btn-success"> Request Feature</button>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock content %}
